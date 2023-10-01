@@ -4,7 +4,9 @@ import { ClerkProvider } from '@clerk/nextjs';
 
 import ModalProvider from '@providers/ModalProvider';
 import ToastProvider from '@providers/ToastProvider';
+
 import '@/globals.scss';
+import { ThemeProvider } from '@providers/ThemeProvider';
 
 const font = Inter({ subsets: ['latin'] });
 
@@ -22,9 +24,15 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang='en'>
         <body className={font.className}>
-          <ToastProvider />
-          <ModalProvider />
-          {children}
+          <ThemeProvider
+            attribute={'class'}
+            defaultTheme={'system'}
+            enableSystem
+          >
+            <ToastProvider />
+            <ModalProvider />
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
